@@ -1,0 +1,81 @@
+body {
+  background-color: dodgerblue;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+body main {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.running-machines__container {
+  width: 80%;
+}
+.running-machines__container .running-machine__container {
+  background-color: snow;
+  border-left: aquamarine solid 1rem;
+  box-sizing: border-box;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  box-shadow: 0.5rem 0.5rem 0.1rem 0.1rem rgba(0, 0, 0, 0.3);
+}
+.running-machines__container .running-machine__container .inputs {
+  border-left: .4rem solid green;
+}
+.running-machines__container .running-machine__container .inputs > div {
+  background-color: lightgreen;
+  padding: .5rem 1rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  transition: all .5s;
+}
+.running-machines__container .running-machine__container .inputs > div label {
+  font-size: 2em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+@media screen and (max-width: 768px) {
+  .running-machines__container .running-machine__container .inputs > div label {
+    font-size: 1.6em;
+  }
+}
+@media screen and (max-width: 500px) {
+  .running-machines__container .running-machine__container .inputs > div label {
+    font-size: 1.5em;
+  }
+}
+.running-machines__container .running-machine__container .inputs > div .slider {
+  width: 50%;
+  height: 100%;
+}
+.running-machines__container .running-machine__container .inputs > div:hover {
+  transform: scale(1.05);
+}
+.running-machines__container .running-machine__container .outputs {
+  display: flex;
+}
+.running-machines__container .running-machine__container .outputs > div {
+  padding: 1rem;
+  flex-grow: 1;
+  background-color: khaki;
+}
+.running-machines__container .running-machine__container .outputs > div label, .running-machines__container .running-machine__container .outputs > div span {
+  font-size: 1.2em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.running-machines__container .running-machine__container .outputs .btm span::after {
+  content: 'BTM';
+}
+.running-machines__container .running-machine__container .outputs .distance span::after {
+  content: 'Km';
+}
+.running-machines__container .running-machine__container .outputs .velocity span::after {
+  content: 'Km/h';
+}
+.running-machines__container .running-machine__container:last-of-type {
+  margin-bottom: 0;
+}

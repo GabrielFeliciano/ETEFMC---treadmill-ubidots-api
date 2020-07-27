@@ -1,0 +1,16 @@
+body {
+    // min-width: 100vw;
+    // min-height: 100vh;
+    background-color: dodgerblue;
+    overflow-x: hidden;
+    box-sizing: border-box;
+
+    main {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+
+        margin: 2rem 0;
+    }
+}

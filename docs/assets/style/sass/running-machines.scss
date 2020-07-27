@@ -1,0 +1,72 @@
+.running-machines__container {
+    width: 80%;
+
+    .running-machine__container {
+        background-color: snow;
+        border-left: aquamarine solid 1rem;
+        box-sizing: border-box;
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+        box-shadow: .5rem .5rem .1rem .1rem rgba(0, 0, 0, 0.3);
+
+        .inputs {
+            border-left: .4rem solid green;
+
+            & > div {
+                background-color: lightgreen;
+                padding: .5rem 1rem;
+                display: flex;
+                align-items: center;
+                text-align: center;
+                justify-content: space-between;
+                transition: all .5s;
+
+                label {
+                    font-size: 2em;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+                    @media screen and (max-width: 768px){
+                        font-size: 1.6em;
+                    }
+
+                    @media screen and (max-width: 500px){
+                        font-size: 1.5em;
+                    }
+                }
+
+                .slider {
+                    width: 50%;
+                    height: 100%;
+                }
+            }
+        }
+
+        .inputs > div:hover {
+            transform: scale(1.05);
+        }
+
+        .outputs {
+            display: flex;
+
+            & > div {
+                padding: 1rem;
+                flex-grow: 1;
+                background-color: khaki;
+
+                label, span {
+                    font-size: 1.2em;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+
+            }
+
+            .btm span::after { content: 'BTM'; }
+            .distance span::after { content: 'Km'; }
+            .velocity span::after { content: 'Km/h'; }
+        }
+    }
+
+    .running-machine__container:last-of-type {
+        margin-bottom: 0;
+    }
+}

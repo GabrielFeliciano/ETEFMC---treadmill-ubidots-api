@@ -1,0 +1,12 @@
+body {
+  background-color: dodgerblue;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+body main {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+}
