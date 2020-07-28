@@ -1,6 +1,7 @@
 class RunningMachine {
     constructor(delFunc) {
         const generalLabels = [{
+            type: 'range',
             className: 'velocity',
             label: '💨Velocidade',
             min: .1,
@@ -8,13 +9,11 @@ class RunningMachine {
             step: .1,
             initialValue: .1
         }, {
+            type: 'text',
             className: 'distance',
-            label: '📏Distância',
-            min: .1,
-            max: 18,
-            step: .1,
-            initialValue: .1
+            label: '📏Distância'
         }, {
+            type: 'range',
             className: 'btm',
             label: '💖Frequência cardíaca',
             min: 45,
@@ -30,31 +29,45 @@ class RunningMachine {
         
         this.closeX = this.createX();
 
-        this.input__container = $('<div class="inputs">').append(this.inputs);
-        this.output__container = $('<div class="outputs">').append(this.outputs);
+        this.inputs__container = $('<div class="inputs">').append(this.inputs);
+        this.outputs__container = $('<div class="outputs">').append(this.outputs);
         
-        this.input__container.children().on('input', event => {
-            this.output__container.find(`.${event.target.name} span`).text(event.target.value);
-        })
+        this.inputs__container.children().on('input', (event) => {
+            this.outputs__container.find(`.${event.target.name} span`).text(
+                parseFloat(event.target.value) > 0 ? parseFloat(event.target.value).toFixed(2) : "0"
+            );
+        });
+        this.inputs__container.find('input').trigger('input');
 
         this.runningMachine = $(`<div class="running-machine__container"></div>`);
         this.runningMachine.append(
             this.closeX,
-            this.output__container, 
-            this.input__container
+            this.outputs__container, 
+            this.inputs__container
         );
 
         this.selfDel = delFunc;
     }
 
     createInput (input) {
-        const {className, label, min = 1, max = 100, step = .1, initialValue = 50} = input;
-        return $(`
+        const {type} = input;
+        if (type === 'range') {
+            const {className, label, min = 1, max = 100, step = .1, initialValue = 50} = input;
+            return $(`
             <div class="${className}">
                 <label for="${className}">${label}</label>
                 <input type="range" min="${min}" max="${max}" step="${step}" value="${initialValue}" class="slider" name="${className}">
             </div>
         `);
+        } else {
+            const {className, label} = input;
+            return $(`
+            <div class="${className}">
+                <label for="${className}">${label}</label>
+                <input type="text" name="${className}">
+            </div>
+        `);   
+        }
     }
 
     createOutput (input) {
@@ -62,7 +75,7 @@ class RunningMachine {
         return $(`
             <div class="${className}">
                 <label>${label}</label>
-                <span>11</span>
+                <span></span>
             </div>
         `);
     }
@@ -87,6 +100,10 @@ class RunningMachinesContainer {
     }
 
     new () {
+        if (this.runningMachines.length >= 10) {
+            return this.container;
+        }
+
         const newMachine = new RunningMachine(this.del.bind(this));
         this.runningMachines.push(newMachine);
         this.container.append(newMachine.runningMachine);
@@ -94,14 +111,23 @@ class RunningMachinesContainer {
     }
 
     del (elem) {
-        this.runningMachines = this.runningMachines.filter((runningMachine => {
-            console.log(runningMachine.runningMachine, elem, runningMachine.runningMachine !== elem)
+        this.runningMachines = this.runningMachines.filter(runningMachine => {
             if (runningMachine.runningMachine !== elem) {
-                elem.remove();
+                setTimeout(() => {
+                    console.log(elem);
+                    elem.remove();
+                }, 500);
+                elem.css('animation', 'desappear 1s cubic-bezier(0.165, 0.84, 0.44, 1)');
                 return false;
             }
             return true;
-        }));
+        });
+    }
+
+    changeList (newShape) {
+        this.runningMachines = newShape;
+        this.runningMachines.forEach(e => e.onChangePosition());
+        return this.runningMachines;
     }
 }
 

@@ -22,6 +22,120 @@ body header h1 {
   text-align: center;
 }
 
+input[type=range] {
+  -webkit-appearance: none;
+  /* Hides the slider so that custom slider can be made */
+  width: 100%;
+  /* Specific width is required for Firefox. */
+  background: transparent;
+  /* Otherwise white in Chrome */
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none;
+  /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  /* Hides the slider so custom styles can be added */
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+  background: greenyellow;
+  cursor: pointer;
+  margin-top: -5px;
+  margin-left: 0px;
+  /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  /* Add cool effects to your sliders! */
+}
+
+.slider::-moz-range-thumb,
+.slider::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+  background: greenyellow;
+  cursor: pointer;
+}
+
+/* Track */
+.slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: linear-gradient(90deg, #005cc8, crimson);
+  border-radius: 1rem;
+  border-top: 0.2px solid #010101;
+  border-bottom: 0.2px solid #010101;
+}
+
+.slider:focus::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, #005cc8, crimson);
+}
+
+.slider::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #9c9fa1;
+  border-radius: 1rem;
+  border-top: 0.2px solid #010101;
+  border-bottom: 0.2px solid #010101;
+}
+
+.slider::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+
+.slider::-ms-fill-lower {
+  background: #2a6495;
+  border-top: 0.2px solid #010101;
+  border-bottom: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+.slider:focus::-ms-fill-lower {
+  background: linear-gradient(90deg, #005cc8, crimson);
+}
+
+.slider::-ms-fill-upper {
+  background: linear-gradient(90deg, #005cc8, crimson);
+  border-top: 0.2px solid #010101;
+  border-bottom: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+.slider:focus::-ms-fill-upper {
+  background: #367ebd;
+}
+
 .running-machines__container {
   width: 100%;
 }
@@ -48,24 +162,37 @@ body header h1 {
   transition: all .5s;
 }
 .running-machines__container .running-machine__container .inputs > div label {
+  text-align: left;
   font-size: 2em;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 50%;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 950px) {
   .running-machines__container .running-machine__container .inputs > div label {
-    font-size: 1.6em;
+    font-size: 1.7em;
+  }
+}
+@media screen and (max-width: 850px) {
+  .running-machines__container .running-machine__container .inputs > div label {
+    font-size: 1.3em;
   }
 }
 @media screen and (max-width: 500px) {
   .running-machines__container .running-machine__container .inputs > div label {
-    font-size: 1.5em;
+    font-size: 1.1em;
   }
 }
-.running-machines__container .running-machine__container .inputs > div .slider {
+.running-machines__container .running-machine__container .inputs > div input {
   width: 50%;
   height: 100%;
 }
-.running-machines__container .running-machine__container .inputs > div:hover {
+.running-machines__container .running-machine__container .inputs > div input[type='text'] {
+  margin: 0 10%;
+  width: 30%;
+  font-size: 1.4em;
+  text-align: center;
+}
+.running-machines__container .running-machine__container .inputs > div:hover, .running-machines__container .running-machine__container .inputs > div:active {
   transform: scale(1.05);
 }
 .running-machines__container .running-machine__container .outputs {
@@ -111,7 +238,7 @@ body header h1 {
   background-color: lightcoral;
   border-radius: 50%;
   cursor: pointer;
-  transform: translate(-1.5rem, -1em);
+  transform: translate(-1.8rem, -1em);
 }
 .running-machines__container .running-machine__container:last-of-type {
   margin-bottom: 0;
@@ -120,17 +247,21 @@ body header h1 {
 @keyframes appear {
   from {
     transform: scale(0.7);
+    opacity: 25%;
   }
   to {
     transform: scale(1);
+    opacity: 100%;
   }
 }
 @keyframes desappear {
   from {
     transform: scale(1);
+    opacity: 100%;
   }
   to {
     transform: scale(0.7);
+    opacity: 25%;
   }
 }
 .cool-button__container {
@@ -150,9 +281,8 @@ button.cool {
   box-shadow: 0.5rem 0.5rem rgba(0, 0, 0, 0.25);
 }
 
-button.cool:hover {
-  transform: scale(1.1);
-  animation: rotate-button 1s;
+button.cool:hover, button.cool:active {
+  animation: rotate-button .25s forwards;
 }
 
 #add button {

@@ -24,24 +24,37 @@
   transition: all .5s;
 }
 .running-machines__container .running-machine__container .inputs > div label {
+  text-align: left;
   font-size: 2em;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 50%;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 950px) {
   .running-machines__container .running-machine__container .inputs > div label {
-    font-size: 1.6em;
+    font-size: 1.7em;
+  }
+}
+@media screen and (max-width: 850px) {
+  .running-machines__container .running-machine__container .inputs > div label {
+    font-size: 1.3em;
   }
 }
 @media screen and (max-width: 500px) {
   .running-machines__container .running-machine__container .inputs > div label {
-    font-size: 1.5em;
+    font-size: 1.1em;
   }
 }
-.running-machines__container .running-machine__container .inputs > div .slider {
+.running-machines__container .running-machine__container .inputs > div input {
   width: 50%;
   height: 100%;
 }
-.running-machines__container .running-machine__container .inputs > div:hover {
+.running-machines__container .running-machine__container .inputs > div input[type='text'] {
+  margin: 0 10%;
+  width: 30%;
+  font-size: 1.4em;
+  text-align: center;
+}
+.running-machines__container .running-machine__container .inputs > div:hover, .running-machines__container .running-machine__container .inputs > div:active {
   transform: scale(1.05);
 }
 .running-machines__container .running-machine__container .outputs {
@@ -87,7 +100,7 @@
   background-color: lightcoral;
   border-radius: 50%;
   cursor: pointer;
-  transform: translate(-1.5rem, -1em);
+  transform: translate(-1.8rem, -1em);
 }
 .running-machines__container .running-machine__container:last-of-type {
   margin-bottom: 0;
@@ -96,16 +109,20 @@
 @keyframes appear {
   from {
     transform: scale(0.7);
+    opacity: 25%;
   }
   to {
     transform: scale(1);
+    opacity: 100%;
   }
 }
 @keyframes desappear {
   from {
     transform: scale(1);
+    opacity: 100%;
   }
   to {
     transform: scale(0.7);
+    opacity: 25%;
   }
 }

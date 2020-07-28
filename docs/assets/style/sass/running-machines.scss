@@ -24,26 +24,39 @@
                 transition: all .5s;
 
                 label {
+                    text-align: left;
                     font-size: 2em;
                     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    max-width: 50%;
 
-                    @media screen and (max-width: 768px){
-                        font-size: 1.6em;
+                    @media screen and (max-width: 950px){
+                        font-size: 1.7em;
+                    }
+
+                    @media screen and (max-width: 850px){
+                        font-size: 1.3em;
                     }
 
                     @media screen and (max-width: 500px){
-                        font-size: 1.5em;
+                        font-size: 1.1em;
                     }
                 }
 
-                .slider {
+                input {
                     width: 50%;
                     height: 100%;
+                }
+
+                input[type='text'] {
+                    margin: 0 10%;
+                    width: 30%;
+                    font-size: 1.4em;
+                    text-align: center;
                 }
             }
         }
 
-        .inputs > div:hover {
+        .inputs > div:hover, .inputs > div:active {
             transform: scale(1.05);
         }
 
@@ -89,7 +102,7 @@
 
             cursor: pointer;
 
-            transform: translate(-1.5rem, -1em);
+            transform: translate(-1.8rem, -1em);
         }
     }
 
@@ -101,15 +114,19 @@
 @keyframes appear {
     from {
         transform: scale(.7);
+        opacity: 25%;
     } to {
         transform: scale(1);
+        opacity: 100%;
     }
 }
 
 @keyframes desappear {
     from {
         transform: scale(1);
+        opacity: 100%;
     } to {
         transform: scale(.7);
+        opacity: 25%;
     }
 }
