@@ -1,12 +1,23 @@
 body {
-  background-color: dodgerblue;
+  background-color: #494380;
   overflow-x: hidden;
   box-sizing: border-box;
 }
 body main {
+  padding: 0 10%;
   display: flex;
   flex-flow: column;
   align-items: center;
   justify-content: center;
   margin: 2rem 0;
+}
+body header {
+  padding: 0 10%;
+}
+body header h1 {
+  font-family: 'Staatliches', cursive;
+  font-size: 4em;
+  color: lavenderblush;
+  padding: 1rem 0;
+  text-align: center;
 }

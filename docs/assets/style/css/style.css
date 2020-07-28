@@ -1,32 +1,45 @@
 body {
-  background-color: dodgerblue;
+  background-color: #494380;
   overflow-x: hidden;
   box-sizing: border-box;
 }
 body main {
+  padding: 0 10%;
   display: flex;
   flex-flow: column;
   align-items: center;
   justify-content: center;
   margin: 2rem 0;
 }
+body header {
+  padding: 0 10%;
+}
+body header h1 {
+  font-family: 'Staatliches', cursive;
+  font-size: 4em;
+  color: lavenderblush;
+  padding: 1rem 0;
+  text-align: center;
+}
 
 .running-machines__container {
-  width: 80%;
+  width: 100%;
 }
 .running-machines__container .running-machine__container {
   background-color: snow;
-  border-left: aquamarine solid 1rem;
+  border-left: lightseagreen solid 1rem;
   box-sizing: border-box;
-  padding: 1rem 0;
   margin-bottom: 2rem;
   box-shadow: 0.5rem 0.5rem 0.1rem 0.1rem rgba(0, 0, 0, 0.3);
+  border-radius: .25rem;
+  position: relative;
+  animation: appear 1s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 .running-machines__container .running-machine__container .inputs {
-  border-left: .4rem solid green;
+  border-left: .4rem solid lightslategray;
 }
 .running-machines__container .running-machine__container .inputs > div {
-  background-color: lightgreen;
+  background-color: #dddddd;
   padding: .5rem 1rem;
   display: flex;
   align-items: center;
@@ -57,15 +70,16 @@ body main {
 }
 .running-machines__container .running-machine__container .outputs {
   display: flex;
-}
-.running-machines__container .running-machine__container .outputs > div {
+  justify-content: space-between;
+  background-color: #ffbc3e;
   padding: 1rem;
-  flex-grow: 1;
-  background-color: khaki;
 }
 .running-machines__container .running-machine__container .outputs > div label, .running-machines__container .running-machine__container .outputs > div span {
   font-size: 1.2em;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Recursive', sans-serif;
+}
+.running-machines__container .running-machine__container .outputs > div span {
+  color: tomato;
 }
 .running-machines__container .running-machine__container .outputs .btm span::after {
   content: 'BTM';
@@ -76,6 +90,86 @@ body main {
 .running-machines__container .running-machine__container .outputs .velocity span::after {
   content: 'Km/h';
 }
+.running-machines__container .running-machine__container .close-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  /* Chrome all / Safari all */
+  -moz-user-select: none;
+  /* Firefox all */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Likely future */
+  font-family: 'Rowdies', cursive;
+  font-weight: bold;
+  position: absolute;
+  color: black;
+  width: 2rem;
+  height: 2rem;
+  background-color: lightcoral;
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translate(-1.5rem, -1em);
+}
 .running-machines__container .running-machine__container:last-of-type {
   margin-bottom: 0;
+}
+
+@keyframes appear {
+  from {
+    transform: scale(0.7);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes desappear {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.7);
+  }
+}
+.cool-button__container {
+  width: 100%;
+}
+
+button.cool {
+  font-size: 1.5em;
+  font-family: 'Recursive', sans-serif;
+  margin-top: 2rem;
+  width: 100%;
+  height: 3rem;
+  border: .2rem dashed;
+  border-radius: .5rem;
+  outline: none;
+  transition: 1s all;
+  box-shadow: 0.5rem 0.5rem rgba(0, 0, 0, 0.25);
+}
+
+button.cool:hover {
+  transform: scale(1.1);
+  animation: rotate-button 1s;
+}
+
+#add button {
+  background-color: rgba(255, 99, 71, 0.4);
+  border-color: tomato;
+}
+
+#send button {
+  border-color: #7cb822;
+  background-color: #bfffbf;
+}
+
+@keyframes rotate-button {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
 }

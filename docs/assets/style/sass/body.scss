@@ -1,16 +1,29 @@
 body {
     // min-width: 100vw;
     // min-height: 100vh;
-    background-color: dodgerblue;
+    background-color: rgb(73, 67, 128);
     overflow-x: hidden;
     box-sizing: border-box;
 
     main {
+        padding: 0 10%;
         display: flex;
         flex-flow: column;
         align-items: center;
         justify-content: center;
 
         margin: 2rem 0;
+    }
+
+    header {
+        padding: 0 10%;
+
+        h1 {
+            font-family: 'Staatliches', cursive;
+            font-size: 4em;
+            color: lavenderblush;
+            padding: 1rem 0;
+            text-align: center;
+        }
     }
 }

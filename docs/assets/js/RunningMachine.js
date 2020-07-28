@@ -1,22 +1,22 @@
 class RunningMachine {
-    constructor() {
+    constructor(delFunc) {
         const generalLabels = [{
             className: 'velocity',
-            label: 'Velocidade',
+            label: '💨Velocidade',
             min: .1,
             max: 18,
             step: .1,
             initialValue: .1
         }, {
             className: 'distance',
-            label: 'Distância',
+            label: '📏Distância',
             min: .1,
             max: 18,
             step: .1,
             initialValue: .1
         }, {
             className: 'btm',
-            label: 'Frequência cardíaca',
+            label: '💖Frequência cardíaca',
             min: 45,
             max: 150,
             step: 1,
@@ -28,6 +28,8 @@ class RunningMachine {
 
         this.outputs = generalLabels.map(info => this.createOutput(info).bind(this));
         
+        this.closeX = this.createX();
+
         this.input__container = $('<div class="inputs">').append(this.inputs);
         this.output__container = $('<div class="outputs">').append(this.outputs);
         
@@ -36,12 +38,17 @@ class RunningMachine {
         })
 
         this.runningMachine = $(`<div class="running-machine__container"></div>`);
-        this.runningMachine.append(this.output__container, this.input__container);
+        this.runningMachine.append(
+            this.closeX,
+            this.output__container, 
+            this.input__container
+        );
+
+        this.selfDel = delFunc;
     }
 
     createInput (input) {
         const {className, label, min = 1, max = 100, step = .1, initialValue = 50} = input;
-        console.log(step);
         return $(`
             <div class="${className}">
                 <label for="${className}">${label}</label>
@@ -59,6 +66,14 @@ class RunningMachine {
             </div>
         `);
     }
+
+    createX () {
+        const x = $('<div class="close-icon"><p>X</p></div>');
+        x.click(function () { 
+            this.selfDel(this.runningMachine);
+        }.bind(this));
+        return x;
+    }
 }
 
 class RunningMachinesContainer {
@@ -72,10 +87,21 @@ class RunningMachinesContainer {
     }
 
     new () {
-        const newMachine = new RunningMachine();
+        const newMachine = new RunningMachine(this.del.bind(this));
         this.runningMachines.push(newMachine);
         this.container.append(newMachine.runningMachine);
         return this.container;
+    }
+
+    del (elem) {
+        this.runningMachines = this.runningMachines.filter((runningMachine => {
+            console.log(runningMachine.runningMachine, elem, runningMachine.runningMachine !== elem)
+            if (runningMachine.runningMachine !== elem) {
+                elem.remove();
+                return false;
+            }
+            return true;
+        }));
     }
 }
 
