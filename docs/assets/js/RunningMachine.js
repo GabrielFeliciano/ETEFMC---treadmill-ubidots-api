@@ -39,9 +39,12 @@ class RunningMachine {
         });
         this.inputs__container.find('input').trigger('input');
 
+        this.titleLabel = this.createTitleLabel()
+
         this.runningMachine = $(`<div class="running-machine__container"></div>`);
         this.runningMachine.append(
             this.closeX,
+            this.titleLabel,
             this.outputs__container, 
             this.inputs__container
         );
@@ -87,6 +90,14 @@ class RunningMachine {
         }.bind(this));
         return x;
     }
+
+    createTitleLabel () {
+        return $('<h2>Esteira 1</h2>')
+    }
+
+    changeTitleLabel (num) {
+        return this.titleLabel.text(`Esteira ${num}`)
+    }
 }
 
 class RunningMachinesContainer {
@@ -107,27 +118,26 @@ class RunningMachinesContainer {
         const newMachine = new RunningMachine(this.del.bind(this));
         this.runningMachines.push(newMachine);
         this.container.append(newMachine.runningMachine);
+
+        newMachine.changeTitleLabel(this.runningMachines.length);
+
         return this.container;
     }
 
     del (elem) {
         this.runningMachines = this.runningMachines.filter(runningMachine => {
-            if (runningMachine.runningMachine !== elem) {
+            console.log(runningMachine.runningMachine, runningMachine.runningMachine !== elem)
+            if (runningMachine.runningMachine === elem) {
+                console.log('oh no')
                 setTimeout(() => {
-                    console.log(elem);
                     elem.remove();
                 }, 500);
-                elem.css('animation', 'desappear 1s cubic-bezier(0.165, 0.84, 0.44, 1)');
+                elem.css('animation', 'desappear .5s ease-in-out');
                 return false;
             }
             return true;
         });
-    }
-
-    changeList (newShape) {
-        this.runningMachines = newShape;
-        this.runningMachines.forEach(e => e.onChangePosition());
-        return this.runningMachines;
+        this.runningMachines.forEach((e, i) => e.changeTitleLabel(i + 1));
     }
 }
 
