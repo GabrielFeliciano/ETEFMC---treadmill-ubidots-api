@@ -87,6 +87,31 @@
 .running-machines__container .running-machine__container .outputs .velocity span::after {
   content: 'Km/h';
 }
+.running-machines__container .running-machine__container .buttons__container {
+  display: flex;
+  width: 100%;
+}
+.running-machines__container .running-machine__container .buttons__container button {
+  width: 1px;
+  padding: .5rem;
+  flex-grow: 1;
+  font-size: 1em;
+  font-weight: bold;
+  outline: none;
+  border: none;
+}
+.running-machines__container .running-machine__container .buttons__container .send {
+  background-color: dodgerblue;
+}
+.running-machines__container .running-machine__container .buttons__container .send:hover {
+  background-color: #00509e;
+}
+.running-machines__container .running-machine__container .buttons__container .auto {
+  background-color: aquamarine;
+}
+.running-machines__container .running-machine__container .buttons__container .auto:hover {
+  background-color: #00ffa9;
+}
 .running-machines__container .running-machine__container .close-icon {
   display: flex;
   align-items: center;

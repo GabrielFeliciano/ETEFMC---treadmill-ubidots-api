@@ -91,6 +91,38 @@
             .velocity span::after { content: 'Km/h'; }
         }
 
+        .buttons__container {
+            display: flex;
+            width: 100%;
+
+            button {
+                width: 1px;
+                padding: .5rem;
+                flex-grow: 1;
+                font-size: 1em;
+                font-weight: bold;
+                    
+                outline: none;
+                border: none;
+            }
+
+            .send {
+                background-color: dodgerblue;
+    
+                &:hover {
+                    background-color: darken($color: dodgerblue, $amount: 25);
+                }
+            }
+
+            .auto {
+                background-color: aquamarine;
+    
+                &:hover {
+                    background-color: darken($color: aquamarine, $amount: 25);
+                } 
+            }
+        }
+
         .close-icon {
             display: flex;
             align-items: center;

@@ -22,16 +22,20 @@ class RunningMachine {
             initialValue: 45
         }];
 
-
+        // Colletion of a group of inputs
         this.inputs = generalLabels.map(info => this.createInput(info).bind(this));
 
+        // Colletion of a group of outputs
         this.outputs = generalLabels.map(info => this.createOutput(info).bind(this));
         
+        // The X that deletes the card
         this.closeX = this.createX();
 
+        // Container of inputs and outputs
         this.inputs__container = $('<div class="inputs">').append(this.inputs);
         this.outputs__container = $('<div class="outputs">').append(this.outputs);
         
+        // Colletion of inputs
         this.inputs__container.children().on('input', (event) => {
             this.outputs__container.find(`.${event.target.name} span`).text(
                 parseFloat(event.target.value) > 0 ? parseFloat(event.target.value).toFixed(2) : "0"
@@ -39,16 +43,23 @@ class RunningMachine {
         });
         this.inputs__container.find('input').trigger('input');
 
-        this.titleLabel = this.createTitleLabel()
+        // Title Element
+        this.titleLabel = this.createTitleLabel();
 
+        this.buttonSend = this.createButtonSend();
+        this.buttonAuto = this.createButtonAuto();
+
+        // The entire card container Element
         this.runningMachine = $(`<div class="running-machine__container"></div>`);
         this.runningMachine.append(
             this.closeX,
             this.titleLabel,
             this.outputs__container, 
-            this.inputs__container
+            this.inputs__container,
+            this.createButtonGroup(this.buttonSend, this.buttonAuto)
         );
 
+        // Callback for self deleting
         this.selfDel = delFunc;
     }
 
@@ -92,11 +103,27 @@ class RunningMachine {
     }
 
     createTitleLabel () {
-        return $('<h2>Esteira 1</h2>')
+        return $('<h2>');
+    }
+
+    createButtonSend () {
+        return $('<button class="send">Enviar</button>');
+    }
+
+    createButtonAuto () {
+        return $('<button class="auto">Valores automáticos</button>');
+    }
+
+    createButtonGroup (...buttons) {
+        const ButtonContainer = $('<div class="buttons__container">');
+        ButtonContainer.append(buttons.flat());
+        return ButtonContainer;
     }
 
     changeTitleLabel (num) {
-        return this.titleLabel.text(`Esteira ${num}`)
+        const emojis = ['🤸‍♀️','🤸‍♂️','🏃‍♂️','🚴‍♀️','🚴‍♂️','🏃‍♀️'];
+        const getRandomEmoji = () => emojis[Math.floor((emojis.length - 1) * Math.random())]
+        return this.titleLabel.text(`${getRandomEmoji()}Esteira ${num}${getRandomEmoji()}`);
     }
 }
 
@@ -126,13 +153,13 @@ class RunningMachinesContainer {
 
     del (elem) {
         this.runningMachines = this.runningMachines.filter(runningMachine => {
-            console.log(runningMachine.runningMachine, runningMachine.runningMachine !== elem)
             if (runningMachine.runningMachine === elem) {
                 console.log('oh no')
                 setTimeout(() => {
                     elem.remove();
                 }, 500);
                 elem.css('animation', 'desappear .5s ease-in-out');
+                elem.find('.close-icon').css('display', 'none');
                 return false;
             }
             return true;
