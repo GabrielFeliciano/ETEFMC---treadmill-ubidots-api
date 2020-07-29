@@ -50,17 +50,37 @@
 @media screen and (max-width: 500px) {
   .running-machines__container .running-machine__container .inputs > div label {
     font-size: 1.1em;
+    font-weight: bold;
+    width: 100%;
+    max-width: unset;
+    padding-bottom: .5rem;
   }
 }
 .running-machines__container .running-machine__container .inputs > div input {
   width: 50%;
   height: 100%;
 }
+@media screen and (max-width: 500px) {
+  .running-machines__container .running-machine__container .inputs > div input {
+    width: 100%;
+  }
+}
 .running-machines__container .running-machine__container .inputs > div input[type='text'] {
   margin: 0 2.5%;
   width: 45%;
   font-size: 1.4em;
   text-align: center;
+}
+@media screen and (max-width: 500px) {
+  .running-machines__container .running-machine__container .inputs > div input[type='text'] {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .running-machines__container .running-machine__container .inputs > div {
+    display: flex;
+    flex-flow: column;
+  }
 }
 .running-machines__container .running-machine__container .inputs > div:hover, .running-machines__container .running-machine__container .inputs > div:active {
   transform: scale(1.05);
