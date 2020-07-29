@@ -46,8 +46,13 @@ class RunningMachine {
         // Title Element
         this.titleLabel = this.createTitleLabel();
 
+        // Bottom Buttons
         this.buttonSend = this.createButtonSend();
         this.buttonAuto = this.createButtonAuto();
+        this.buttonGroup = this.createButtonGroup(this.buttonSend, this.buttonAuto);
+
+        // Bottom Button on click
+        this.buttonSend.click(this.onSend.bind(this));
 
         // The entire card container Element
         this.runningMachine = $(`<div class="running-machine__container"></div>`);
@@ -56,8 +61,11 @@ class RunningMachine {
             this.titleLabel,
             this.outputs__container, 
             this.inputs__container,
-            this.createButtonGroup(this.buttonSend, this.buttonAuto)
+            this.buttonGroup
         );
+
+        // Pos of card
+        this.position = 0;
 
         // Callback for self deleting
         this.selfDel = delFunc;
@@ -125,6 +133,34 @@ class RunningMachine {
         const getRandomEmoji = () => emojis[Math.floor((emojis.length - 1) * Math.random())]
         return this.titleLabel.text(`${getRandomEmoji()}Esteira ${num}${getRandomEmoji()}`);
     }
+
+    changePosition (num) {
+        this.position = num;
+        this.changeTitleLabel(num);
+    }
+
+    onSend () {
+        const allInputs = [...this.inputs__container.find('input')];
+
+        const body = {};
+        allInputs.forEach(e => {
+            const elemTransformed = $(e)
+            body[elemTransformed.attr('name')] = 
+            (parseFloat(elemTransformed.val()) || elemTransformed.val() || elemTransformed.attr('min')) ?? 0
+        });
+        
+        const requestOpt = {
+            method: 'POST',
+            headers: {
+                'X-Auth-Token': 'BBFF-ycnt827PsP3fvFOt50yeJvdcNBNzTP',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body),
+            credentials: "same-origin"
+        }
+        fetch(`http://things.ubidots.com/api/v1.6/devices/running-machine-${this.position}`, requestOpt)
+        .catch(console.error);
+    }
 }
 
 class RunningMachinesContainer {
@@ -146,7 +182,7 @@ class RunningMachinesContainer {
         this.runningMachines.push(newMachine);
         this.container.append(newMachine.runningMachine);
 
-        newMachine.changeTitleLabel(this.runningMachines.length);
+        newMachine.changePosition(this.runningMachines.length);
 
         return this.container;
     }
@@ -164,7 +200,7 @@ class RunningMachinesContainer {
             }
             return true;
         });
-        this.runningMachines.forEach((e, i) => e.changeTitleLabel(i + 1));
+        this.runningMachines.forEach((e, i) => e.changePosition(i + 1));
     }
 }
 
