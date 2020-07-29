@@ -18,6 +18,10 @@
             background-color: gray;
             font-family: 'Rowdies', cursive;
             color: #353535;
+
+            @media screen and (max-width: 500px) {
+                font-size: 2em;
+            }
         }
 
         .inputs {
@@ -114,7 +118,7 @@
             }
 
             .btm span::after { content: 'BTM'; }
-            .distance span::after { content: 'Km'; }
+            .distance span::after { content: 'M'; }
             .velocity span::after { content: 'Km/h'; }
         }
 
@@ -144,6 +148,10 @@
     
                 &:hover {
                     background-color: darken($color: dodgerblue, $amount: 25);
+                }
+
+                &.disabled {
+                    background-color: grey;
                 }
             }
 

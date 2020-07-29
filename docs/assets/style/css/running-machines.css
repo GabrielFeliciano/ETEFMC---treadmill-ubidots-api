@@ -19,6 +19,11 @@
   font-family: 'Rowdies', cursive;
   color: #353535;
 }
+@media screen and (max-width: 500px) {
+  .running-machines__container .running-machine__container h2 {
+    font-size: 2em;
+  }
+}
 .running-machines__container .running-machine__container .inputs {
   border-left: .4rem solid lightslategray;
 }
@@ -114,7 +119,7 @@
   content: 'BTM';
 }
 .running-machines__container .running-machine__container .outputs .distance span::after {
-  content: 'Km';
+  content: 'M';
 }
 .running-machines__container .running-machine__container .outputs .velocity span::after {
   content: 'Km/h';
@@ -137,6 +142,9 @@
 }
 .running-machines__container .running-machine__container .buttons__container .send:hover {
   background-color: #00509e;
+}
+.running-machines__container .running-machine__container .buttons__container .send.disabled {
+  background-color: grey;
 }
 .running-machines__container .running-machine__container .buttons__container .auto {
   background-color: aquamarine;

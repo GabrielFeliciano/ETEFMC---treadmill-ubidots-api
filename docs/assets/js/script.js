@@ -1,8 +1,8 @@
-import RunningMachinesContainer from './RunningMachine.js';
+import RunningMachinesContainer from './RunningMachineContainer.js';
 
 $(document).ready(() => {
     const rm = new RunningMachinesContainer('.running-machines__container');
-    console.log(rm)
+    console.log(rm);
 
     rm.new();
     rm.new();

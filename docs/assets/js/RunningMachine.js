@@ -1,5 +1,5 @@
 class RunningMachine {
-    constructor(delFunc) {
+    constructor(delFunc, reqFunc) {
         const generalLabels = [{
             type: 'range',
             className: 'velocity',
@@ -69,6 +69,9 @@ class RunningMachine {
 
         // Callback for self deleting
         this.selfDel = delFunc;
+
+        // Request to talk to API
+        this.requester = reqFunc;
     }
 
     createInput (input) {
@@ -149,59 +152,9 @@ class RunningMachine {
             (parseFloat(elemTransformed.val()) || elemTransformed.val() || elemTransformed.attr('min')) ?? 0
         });
         
-        const requestOpt = {
-            method: 'POST',
-            headers: {
-                'X-Auth-Token': 'BBFF-ycnt827PsP3fvFOt50yeJvdcNBNzTP',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body),
-            credentials: "same-origin"
-        }
-        fetch(`http://things.ubidots.com/api/v1.6/devices/running-machine-${this.position}`, requestOpt)
-        .catch(console.error);
+        console.log(this.Requester)
+        this.requester(this.position, body);
     }
 }
 
-class RunningMachinesContainer {
-    constructor (selector) {
-        this.container = $(selector);
-        this.runningMachines = [];
-
-        this.inputVelocity = this.container.find('.inputs .velocity');
-        this.inputDistance = this.container.find('.inputs .distance');
-        this.inputBTM = this.container.find('.inputs .btm');
-    }
-
-    new () {
-        if (this.runningMachines.length >= 10) {
-            return this.container;
-        }
-
-        const newMachine = new RunningMachine(this.del.bind(this));
-        this.runningMachines.push(newMachine);
-        this.container.append(newMachine.runningMachine);
-
-        newMachine.changePosition(this.runningMachines.length);
-
-        return this.container;
-    }
-
-    del (elem) {
-        this.runningMachines = this.runningMachines.filter(runningMachine => {
-            if (runningMachine.runningMachine === elem) {
-                console.log('oh no')
-                setTimeout(() => {
-                    elem.remove();
-                }, 500);
-                elem.css('animation', 'desappear .5s ease-in-out');
-                elem.find('.close-icon').css('display', 'none');
-                return false;
-            }
-            return true;
-        });
-        this.runningMachines.forEach((e, i) => e.changePosition(i + 1));
-    }
-}
-
-export default RunningMachinesContainer
+export default RunningMachine;
