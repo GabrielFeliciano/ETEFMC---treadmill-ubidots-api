@@ -1,11 +1,43 @@
+const random = (size = 10) => {
+    let result = 0;
+    for (let i = 0; i < size; i++) {
+        result += Math.random();
+    }
+    return result / size;
+}
+    
+
+const names = [
+    'Jonas',
+    'Gabriel',
+    'Alisson',
+    'Codeine',
+    'Froy',
+    'Strongnost',
+    'Zeta',
+    'Junior',
+    'Delpha',
+    'Gih',
+    'Clarity',
+    'Thin',
+    'Dr Velorine',
+    '^~^',
+    'undefined'
+]
+
 class SimulatedPerson {
     constructor () {
+        fetch('https://randomuser.me/api/')
+        .then(e => e.json())
+        .then((response => this.changeName(response.results[0].name.first)).bind(this))
+        .catch(names[this.intRandomizer(names.length) - 1]);
+
         this.resistance = this.intRandomizer(10) / 10;
         this.determination = this.intRandomizer(10) / 10;
         this.experience = this.intRandomizer(10) / 10;
 
         this.maxVelocity = 1.25 * this.determination + 2.5 * (this.resistance - .5) + 8;
-        this.timeToSpend = 200 + 100 * this.determination + this.randomizerPosOrNeg(28)
+        this.timeToSpend = 120 + 100 * this.determination + this.randomizerPosOrNeg(28);
 
         this.velocityFunction = this.createVelocityFunction();
         this.distanceFunction = this.createDistanceFunction();
@@ -32,13 +64,13 @@ class SimulatedPerson {
 
     intRandomizer (size = 5) {
         const randomBetween0and1 = Math.random();
-        const intNum = size * (randomBetween0and1 - randomBetween0and1 % (1/size)) + 1;
+        const intNum = Math.floor(size * randomBetween0and1) + 1;
         return intNum;
     }
 
     randomizerPosOrNeg (size = 5) {
-        const posOrNeg = Math.random() > .5 ? 1 : -1;
-        return posOrNeg * size * Math.random();
+        const posOrNeg = random() > .5 ? 1 : -1;
+        return posOrNeg * size * random();
     }
 
     // Main Function!
@@ -66,4 +98,10 @@ class SimulatedPerson {
 
         return a;
     }
+
+    changeName (name) {
+        this.name = name;
+    }
 }
+
+export default SimulatedPerson;

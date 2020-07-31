@@ -1,4 +1,4 @@
-class RunningMachine {
+class ManualTreadmill {
     constructor(delFunc, reqFunc) {
         const generalLabels = [{
             type: 'range',
@@ -14,7 +14,7 @@ class RunningMachine {
             label: '📏Distância'
         }, {
             type: 'range',
-            className: 'btm',
+            className: 'cardio-frequecy',
             label: '💖Frequência cardíaca',
             min: 45,
             max: 150,
@@ -55,8 +55,8 @@ class RunningMachine {
         this.buttonSend.click(this.onSend.bind(this));
 
         // The entire card container Element
-        this.runningMachine = $(`<div class="running-machine__container"></div>`);
-        this.runningMachine.append(
+        this.card = $(`<div class="running-machine__container"></div>`);
+        this.card.append(
             this.closeX,
             this.titleLabel,
             this.outputs__container, 
@@ -147,9 +147,9 @@ class RunningMachine {
 
         const body = {};
         allInputs.forEach(e => {
-            const elemTransformed = $(e)
-            body[elemTransformed.attr('name')] = 
-            (parseFloat(elemTransformed.val()) || elemTransformed.val() || elemTransformed.attr('min')) ?? 0
+            const elemTransformed = $(e);
+            const result = (parseFloat(elemTransformed.val()) || elemTransformed.val() || elemTransformed.attr('min'));
+            body[elemTransformed.attr('name')] = result ? 0 : result;
         });
         
         console.log(this.Requester)
@@ -157,4 +157,4 @@ class RunningMachine {
     }
 }
 
-export default RunningMachine;
+export default ManualTreadmill;

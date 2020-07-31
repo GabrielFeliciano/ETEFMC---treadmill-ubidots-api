@@ -1,9 +1,10 @@
 class Requester {
     constructor () {
         this.isDelayOn = false;
+        this.delay = 15;
     }
 
-    send (pos, body, onDelayOn, onDelayDone) {
+    send (pos, body, onDelayOn, onDelayDone, whileDelayOn) {
         if (this.isDelayOn) { return null; }
 
         this.isDelayOn = true;
@@ -22,10 +23,19 @@ class Requester {
         .then(console.log)
         .catch(console.error);
 
-        setTimeout(function () {
-            this.isDelayOn = false;
-            onDelayDone();
-        }.bind(this), 3000);
+        let timer = 0;
+        whileDelayOn(this.delay - timer);
+        const intervalID = setInterval(function () {
+            timer++;
+            whileDelayOn(this.delay - timer);
+
+            if (timer > this.delay) {
+                this.isDelayOn = false;
+                onDelayDone();
+                clearInterval(intervalID);
+                return null;
+            }
+        }.bind(this), 1000);
     }
 }
 

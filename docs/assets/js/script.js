@@ -1,7 +1,7 @@
-import RunningMachinesContainer from './RunningMachineContainer.js';
+import TreadmillsContainer from './TreadmillsContainer.js';
 
 $(document).ready(() => {
-    const rm = new RunningMachinesContainer('.running-machines__container');
+    const rm = new TreadmillsContainer('.running-machines__container');
     console.log(rm);
 
     rm.new();
