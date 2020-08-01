@@ -8,7 +8,8 @@ class TreadmillsContainer {
         this.cardsContainer = $(selector);
         this.treadmillsCards = [];
 
-        this.Requester = new Requester();
+        this.ManualTypeRequester = new Requester();
+        this.AutoTypeRequester = new Requester();
 
         this.onDelayOn = (() => {
             this.treadmillsCards.forEach(e => e.buttonSend.attr('disabled', true));
@@ -22,6 +23,29 @@ class TreadmillsContainer {
         this.whileDelayOn = (time => {
             this.treadmillsCards.forEach(e => e.buttonSend.text(`Espere ${time} segundos`));
         }).bind(this);
+
+        this.delFunc = this.del.bind(this);
+        this.changeType = this.switchType.bind(this);
+        this.reqFuncForManualCards = function (pos, body, responseStatus) { 
+            this.ManualTypeRequester.send(
+                pos, 
+                body, 
+                this.onDelayOn, 
+                this.onDelayDone,
+                this.whileDelayOn,
+                responseStatus
+            )
+        }.bind(this);
+        this.reqFuncForAutoCards = function (pos, body, responseStatus) { 
+            this.AutoTypeRequester.send(
+                pos, 
+                body, 
+                undefined, 
+                undefined,
+                undefined,
+                responseStatus
+            )
+        }.bind(this);
     }
 
     new () {
@@ -30,28 +54,22 @@ class TreadmillsContainer {
         }
 
         const newTreadmill = new ManualTreadmill(
-            this.del.bind(this), 
-            ((pos, body) => this.Requester.send(
-                pos, 
-                body, 
-                this.onDelayOn.bind(this), 
-                this.onDelayDone.bind(this),
-                this.whileDelayOn.bind(this)
-            )).bind(this)
+            this.delFunc, 
+            this.reqFuncForManualCards,
+            this.changeType
         );
 
         this.treadmillsCards.push(newTreadmill);
         this.cardsContainer.append(newTreadmill.card);
 
-        newTreadmill.changePosition(this.treadmillsCards.length);
+        newTreadmill.recalculatePosition(this.treadmillsCards.length - 1);
 
         return this.cardsContainer;
     }
 
     del (elem) {
         this.treadmillsCards = this.treadmillsCards.filter(runningMachine => {
-            if (runningMachine.runningMachine === elem) {
-                console.log('oh no')
+            if (runningMachine.card === elem) {
                 setTimeout(() => {
                     elem.remove();
                 }, 500);
@@ -61,33 +79,36 @@ class TreadmillsContainer {
             }
             return true;
         });
-        this.treadmillsCards.forEach((e, i) => e.changePosition(i + 1));
+        this.recalculatePositionOfAllCards();
     }
 
-    // change (listOfCards) {
-    //     console.log(this.cardsContainer.children(), listOfCards);
-    //     console.log(this.cardsContainer.html());
-    //     this.cardsContainer.html('');
-    //     console.log(this.cardsContainer.children(), listOfCards);
-    //     console.log(this.cardsContainer.html());
-    //     this.cardsContainer.append(listOfCards);
-    //     console.log(this.cardsContainer.children(), listOfCards);
-    //     console.log(this.cardsContainer.html());
-    //     this.treadmillsCards = listOfCards;
-    //     this.treadmillsCards.forEach((e, i) => e.changePosition(i + 1));
-    // }
-
-    switchAuto (pos) {
+    switchType (pos) {
         if (this.treadmillsCards[pos] instanceof ManualTreadmill) {
-            const newTreadmillCard = new AutoTreadmill();
+            const newTreadmillCard = new AutoTreadmill(
+                this.delFunc, 
+                this.reqFuncForAutoCards,
+                this.changeType
+            );
             //console.log(newTreadmillCard.card, this.cardsContainer.children()[pos]);
             $(this.cardsContainer.children()[pos]).replaceWith(newTreadmillCard.card);
             this.treadmillsCards[pos] = newTreadmillCard;
         } else {
-            const newTreadmillCard = new ManualTreadmill();
+            const reqFunc = function (pos, body, responseStatus) { 
+            }.bind(this);
+
+            const newTreadmillCard = new ManualTreadmill(
+                this.delFunc, 
+                this.reqFuncForManualCards,
+                this.changeType
+            );
             $(this.cardsContainer.children()[pos]).replaceWith(newTreadmillCard.card);
             this.treadmillsCards[pos] = newTreadmillCard;
         }
+        this.recalculatePositionOfAllCards();
+    }
+
+    recalculatePositionOfAllCards () {
+        this.treadmillsCards.forEach((e, i) => e.recalculatePosition(i));
     }
 }
 

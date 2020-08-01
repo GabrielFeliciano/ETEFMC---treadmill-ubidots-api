@@ -1,0 +1,101 @@
+.running-machines__container {
+    width: 100%;
+
+    .close-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        -webkit-user-select: none;  /* Chrome all / Safari all */
+        -moz-user-select: none;     /* Firefox all */
+        -ms-user-select: none;      /* IE 10+ */
+        user-select: none;          /* Likely future */      
+        font-family: 'Rowdies', cursive;
+        font-weight: bold;
+        position: absolute;
+        color: black;
+        width: 2rem;
+        height: 2rem;
+        background-color: lightcoral;
+        border-radius: 50%;
+
+        cursor: pointer;
+
+        transform: translate(-1.8rem, -1em);
+    }
+
+    h2 {
+        font-size: 2.5em;
+        text-align: center;
+        padding: .5rem 0;
+        background-color: gray;
+        font-family: 'Rowdies', cursive;
+        color: #353535;
+
+        @media screen and (max-width: 500px) {
+            font-size: 2em;
+        }
+    }
+
+    .buttons__container {
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
+
+        button {
+            color: antiquewhite;
+            background-color: #404040;
+            border: 1rem solid rgba(168, 79, 79, 0.5);
+            min-width: 10rem;
+
+            width: 1px;
+            padding: .5rem;
+            flex-grow: 1;
+            font-size: 1em;
+            font-weight: bold;
+                
+            outline: none;
+            border: none;
+
+            // background-color: rgb(240, 136, 98);
+
+            // &:hover {
+            //     background-color: darken($color: rgb(240, 136, 98), $amount: 15);
+            // }
+        }
+
+        .send {
+            &:hover {
+                background-color: lighten($color: #404040, $amount: 25);
+            }
+
+            &.disabled {
+                background-color: grey;
+            }
+        }
+
+        .auto {
+            &:hover {
+                background-color: lighten($color: #404040, $amount: 25);
+            } 
+        }
+    }
+
+    .treadmill-card {
+        animation: appear 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .message-line {
+        font-size: 1.5em;
+        display: block;
+        text-align: center;
+        padding: .5rem 0;
+        color: tomato;
+        font-weight: bold;
+        background-color: #353535;
+    }
+}
+
+.running-machine__container:last-child {
+    margin-bottom: 0;
+}

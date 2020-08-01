@@ -1,0 +1,63 @@
+.treadmill-card.auto {
+  border-left: lightseagreen solid 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0.5rem 0.5rem 0.1rem 0.1rem rgba(0, 0, 0, 0.3);
+  border-radius: .25rem;
+  position: relative;
+}
+.treadmill-card.auto .outputs, .treadmill-card.auto .infos, .treadmill-card.auto .important-stats {
+  border-left: .4rem solid lightslategray;
+}
+.treadmill-card.auto .outputs > div, .treadmill-card.auto .infos > div, .treadmill-card.auto .important-stats > div {
+  padding: .5rem 1rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  transition: all .5s;
+}
+.treadmill-card.auto .outputs > div label, .treadmill-card.auto .infos > div label, .treadmill-card.auto .important-stats > div label {
+  text-align: left;
+  font-size: 2em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 50%;
+}
+@media screen and (max-width: 950px) {
+  .treadmill-card.auto .outputs > div label, .treadmill-card.auto .infos > div label, .treadmill-card.auto .important-stats > div label {
+    font-size: 1.7em;
+  }
+}
+@media screen and (max-width: 850px) {
+  .treadmill-card.auto .outputs > div label, .treadmill-card.auto .infos > div label, .treadmill-card.auto .important-stats > div label {
+    font-size: 1.3em;
+  }
+}
+@media screen and (max-width: 500px) {
+  .treadmill-card.auto .outputs > div label, .treadmill-card.auto .infos > div label, .treadmill-card.auto .important-stats > div label {
+    font-size: 1.1em;
+    font-weight: bold;
+    width: 100%;
+    max-width: unset;
+    padding-bottom: .5rem;
+  }
+}
+.treadmill-card.auto .outputs > div span, .treadmill-card.auto .infos > div span, .treadmill-card.auto .important-stats > div span {
+  font-size: 1.2em;
+  font-family: 'Recursive', sans-serif;
+  color: tomato;
+}
+@media screen and (max-width: 500px) {
+  .treadmill-card.auto .outputs > div, .treadmill-card.auto .infos > div, .treadmill-card.auto .important-stats > div {
+    display: flex;
+    flex-flow: column;
+  }
+}
+.treadmill-card.auto .important-stats {
+  background-color: #ffbc3e;
+}
+.treadmill-card.auto .infos {
+  background-color: #ffd27d;
+}
+.treadmill-card.auto .outputs {
+  background-color: #dddddd;
+}

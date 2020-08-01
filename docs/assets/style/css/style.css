@@ -139,158 +139,7 @@ input[type=range]::-ms-track {
 .running-machines__container {
   width: 100%;
 }
-.running-machines__container .running-machine__container {
-  background-color: snow;
-  border-left: lightseagreen solid 1rem;
-  box-sizing: border-box;
-  margin-bottom: 2rem;
-  box-shadow: 0.5rem 0.5rem 0.1rem 0.1rem rgba(0, 0, 0, 0.3);
-  border-radius: .25rem;
-  position: relative;
-  animation: appear 1s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-.running-machines__container .running-machine__container h2 {
-  font-size: 2.5em;
-  text-align: center;
-  padding: .5rem 0;
-  background-color: gray;
-  font-family: 'Rowdies', cursive;
-  color: #353535;
-}
-@media screen and (max-width: 500px) {
-  .running-machines__container .running-machine__container h2 {
-    font-size: 2em;
-  }
-}
-.running-machines__container .running-machine__container .inputs {
-  border-left: .4rem solid lightslategray;
-}
-.running-machines__container .running-machine__container .inputs > div {
-  background-color: #dddddd;
-  padding: .5rem 1rem;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: space-between;
-  transition: all .5s;
-}
-.running-machines__container .running-machine__container .inputs > div label {
-  text-align: left;
-  font-size: 2em;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  max-width: 50%;
-}
-@media screen and (max-width: 950px) {
-  .running-machines__container .running-machine__container .inputs > div label {
-    font-size: 1.7em;
-  }
-}
-@media screen and (max-width: 850px) {
-  .running-machines__container .running-machine__container .inputs > div label {
-    font-size: 1.3em;
-  }
-}
-@media screen and (max-width: 500px) {
-  .running-machines__container .running-machine__container .inputs > div label {
-    font-size: 1.1em;
-    font-weight: bold;
-    width: 100%;
-    max-width: unset;
-    padding-bottom: .5rem;
-  }
-}
-.running-machines__container .running-machine__container .inputs > div input {
-  width: 50%;
-  height: 100%;
-}
-@media screen and (max-width: 500px) {
-  .running-machines__container .running-machine__container .inputs > div input {
-    width: 100%;
-  }
-}
-.running-machines__container .running-machine__container .inputs > div input[type='text'] {
-  margin: 0 2.5%;
-  width: 45%;
-  font-size: 1.4em;
-  text-align: center;
-}
-@media screen and (max-width: 500px) {
-  .running-machines__container .running-machine__container .inputs > div input[type='text'] {
-    width: 100%;
-  }
-}
-@media screen and (max-width: 500px) {
-  .running-machines__container .running-machine__container .inputs > div {
-    display: flex;
-    flex-flow: column;
-  }
-}
-.running-machines__container .running-machine__container .inputs > div:hover, .running-machines__container .running-machine__container .inputs > div:active {
-  transform: scale(1.05);
-}
-.running-machines__container .running-machine__container .outputs {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  background-color: #ffbc3e;
-  padding: 1rem;
-}
-.running-machines__container .running-machine__container .outputs > div {
-  padding: .4rem 1rem;
-}
-.running-machines__container .running-machine__container .outputs > div label, .running-machines__container .running-machine__container .outputs > div span {
-  min-width: 10rem;
-  font-size: 1.2em;
-  font-family: 'Recursive', sans-serif;
-}
-.running-machines__container .running-machine__container .outputs > div span {
-  color: tomato;
-}
-@media screen and (max-width: 600px) {
-  .running-machines__container .running-machine__container .outputs > div {
-    display: flex;
-    flex-flow: column;
-    padding: .6rem 1rem;
-  }
-}
-.running-machines__container .running-machine__container .outputs .btm span::after {
-  content: 'BTM';
-}
-.running-machines__container .running-machine__container .outputs .distance span::after {
-  content: 'M';
-}
-.running-machines__container .running-machine__container .outputs .velocity span::after {
-  content: 'Km/h';
-}
-.running-machines__container .running-machine__container .buttons__container {
-  display: flex;
-  width: 100%;
-}
-.running-machines__container .running-machine__container .buttons__container button {
-  width: 1px;
-  padding: .5rem;
-  flex-grow: 1;
-  font-size: 1em;
-  font-weight: bold;
-  outline: none;
-  border: none;
-}
-.running-machines__container .running-machine__container .buttons__container .send {
-  background-color: dodgerblue;
-}
-.running-machines__container .running-machine__container .buttons__container .send:hover {
-  background-color: #00509e;
-}
-.running-machines__container .running-machine__container .buttons__container .send.disabled {
-  background-color: grey;
-}
-.running-machines__container .running-machine__container .buttons__container .auto {
-  background-color: aquamarine;
-}
-.running-machines__container .running-machine__container .buttons__container .auto:hover {
-  background-color: #00ffa9;
-}
-.running-machines__container .running-machine__container .close-icon {
+.running-machines__container .close-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -313,8 +162,171 @@ input[type=range]::-ms-track {
   cursor: pointer;
   transform: translate(-1.8rem, -1em);
 }
-.running-machines__container .running-machine__container:last-of-type {
+.running-machines__container h2 {
+  font-size: 2.5em;
+  text-align: center;
+  padding: .5rem 0;
+  background-color: gray;
+  font-family: 'Rowdies', cursive;
+  color: #353535;
+}
+@media screen and (max-width: 500px) {
+  .running-machines__container h2 {
+    font-size: 2em;
+  }
+}
+.running-machines__container .buttons__container {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+.running-machines__container .buttons__container button {
+  color: antiquewhite;
+  background-color: #404040;
+  border: 1rem solid rgba(168, 79, 79, 0.5);
+  min-width: 10rem;
+  width: 1px;
+  padding: .5rem;
+  flex-grow: 1;
+  font-size: 1em;
+  font-weight: bold;
+  outline: none;
+  border: none;
+}
+.running-machines__container .buttons__container .send:hover {
+  background-color: gray;
+}
+.running-machines__container .buttons__container .send.disabled {
+  background-color: grey;
+}
+.running-machines__container .buttons__container .auto:hover {
+  background-color: gray;
+}
+.running-machines__container .treadmill-card {
+  animation: appear 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.running-machines__container .message-line {
+  font-size: 1.5em;
+  display: block;
+  text-align: center;
+  padding: .5rem 0;
+  color: tomato;
+  font-weight: bold;
+  background-color: #353535;
+}
+
+.running-machine__container:last-child {
   margin-bottom: 0;
+}
+
+.treadmill-card.manual {
+  background-color: snow;
+  border-left: lightseagreen solid 1rem;
+  box-sizing: border-box;
+  margin-bottom: 2rem;
+  box-shadow: 0.5rem 0.5rem 0.1rem 0.1rem rgba(0, 0, 0, 0.3);
+  border-radius: .25rem;
+  position: relative;
+}
+.treadmill-card.manual .inputs {
+  border-left: .4rem solid lightslategray;
+}
+.treadmill-card.manual .inputs > div {
+  background-color: #dddddd;
+  padding: .5rem 1rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  transition: all .5s;
+}
+.treadmill-card.manual .inputs > div label {
+  text-align: left;
+  font-size: 2em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 50%;
+}
+@media screen and (max-width: 950px) {
+  .treadmill-card.manual .inputs > div label {
+    font-size: 1.7em;
+  }
+}
+@media screen and (max-width: 850px) {
+  .treadmill-card.manual .inputs > div label {
+    font-size: 1.3em;
+  }
+}
+@media screen and (max-width: 500px) {
+  .treadmill-card.manual .inputs > div label {
+    font-size: 1.1em;
+    font-weight: bold;
+    width: 100%;
+    max-width: unset;
+    padding-bottom: .5rem;
+  }
+}
+.treadmill-card.manual .inputs > div input {
+  width: 50%;
+  height: 100%;
+}
+@media screen and (max-width: 500px) {
+  .treadmill-card.manual .inputs > div input {
+    width: 100%;
+  }
+}
+.treadmill-card.manual .inputs > div input[type='text'] {
+  margin: 0 2.5%;
+  width: 45%;
+  font-size: 1.4em;
+  text-align: center;
+}
+@media screen and (max-width: 500px) {
+  .treadmill-card.manual .inputs > div input[type='text'] {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .treadmill-card.manual .inputs > div {
+    display: flex;
+    flex-flow: column;
+  }
+}
+.treadmill-card.manual .inputs > div:hover, .treadmill-card.manual .inputs > div:active {
+  transform: scale(1.05);
+}
+.treadmill-card.manual .outputs {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  background-color: #ffbc3e;
+  padding: 1rem;
+}
+.treadmill-card.manual .outputs > div {
+  padding: .4rem 1rem;
+}
+.treadmill-card.manual .outputs > div label, .treadmill-card.manual .outputs > div span {
+  min-width: 10rem;
+  font-size: 1.2em;
+  font-family: 'Recursive', sans-serif;
+}
+.treadmill-card.manual .outputs > div span {
+  color: tomato;
+}
+@media screen and (max-width: 600px) {
+  .treadmill-card.manual .outputs > div {
+    display: flex;
+    flex-flow: column;
+    padding: .6rem 1rem;
+  }
+}
+.treadmill-card.manual .outputs .btm span::after {
+  content: 'BTM';
+}
+.treadmill-card.manual .outputs .distance span::after {
+  content: 'M';
+}
+.treadmill-card.manual .outputs .velocity span::after {
+  content: 'Km/h';
 }
 
 @keyframes appear {
@@ -337,6 +349,78 @@ input[type=range]::-ms-track {
     opacity: 25%;
   }
 }
+.treadmill-card.auto {
+  border-left: lightseagreen solid 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0.5rem 0.5rem 0.1rem 0.1rem rgba(0, 0, 0, 0.3);
+  border-radius: .25rem;
+  position: relative;
+}
+.treadmill-card.auto .outputs, .treadmill-card.auto .infos, .treadmill-card.auto .important-stats {
+  border-left: .4rem solid lightslategray;
+}
+.treadmill-card.auto .outputs > div, .treadmill-card.auto .infos > div, .treadmill-card.auto .important-stats > div {
+  padding: .5rem 1rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  transition: all .5s;
+}
+.treadmill-card.auto .outputs > div label, .treadmill-card.auto .infos > div label, .treadmill-card.auto .important-stats > div label {
+  text-align: left;
+  font-size: 2em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 50%;
+}
+@media screen and (max-width: 950px) {
+  .treadmill-card.auto .outputs > div label, .treadmill-card.auto .infos > div label, .treadmill-card.auto .important-stats > div label {
+    font-size: 1.7em;
+  }
+}
+@media screen and (max-width: 850px) {
+  .treadmill-card.auto .outputs > div label, .treadmill-card.auto .infos > div label, .treadmill-card.auto .important-stats > div label {
+    font-size: 1.3em;
+  }
+}
+@media screen and (max-width: 500px) {
+  .treadmill-card.auto .outputs > div label, .treadmill-card.auto .infos > div label, .treadmill-card.auto .important-stats > div label {
+    font-size: 1.1em;
+    font-weight: bold;
+    width: 100%;
+    max-width: unset;
+    padding-bottom: .5rem;
+  }
+}
+.treadmill-card.auto .outputs > div span, .treadmill-card.auto .infos > div span, .treadmill-card.auto .important-stats > div span {
+  font-size: 1.2em;
+  font-family: 'Recursive', sans-serif;
+  color: tomato;
+}
+@media screen and (max-width: 500px) {
+  .treadmill-card.auto .outputs > div, .treadmill-card.auto .infos > div, .treadmill-card.auto .important-stats > div {
+    display: flex;
+    flex-flow: column;
+  }
+}
+.treadmill-card.auto .important-stats {
+  background-color: #ffbc3e;
+}
+.treadmill-card.auto .infos {
+  background-color: #ffd27d;
+}
+.treadmill-card.auto .outputs {
+  background-color: #dddddd;
+}
+
+.embed-dashboard {
+  display: flex;
+  min-height: unset;
+  max-height: unset;
+  overflow-y: hidden;
+  height: 100vh;
+}
+
 .cool-button__container {
   width: 100%;
 }

@@ -1,5 +1,13 @@
-.auto-running-machine__container {
-    .outputs {
+.treadmill-card.manual {
+    background-color: snow;
+    border-left: lightseagreen solid 1rem;
+    box-sizing: border-box;
+    margin-bottom: 2rem;
+    box-shadow: .5rem .5rem .1rem .1rem rgba(0, 0, 0, 0.3);
+    border-radius: .25rem;
+    position: relative;
+
+    .inputs {
         border-left: .4rem solid lightslategray;
 
         & > div {
@@ -59,5 +67,61 @@
                 flex-flow: column;
             }
         }
+    }
+
+    .inputs > div:hover, .inputs > div:active {
+        transform: scale(1.05);
+    }
+
+    .outputs {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        background-color: rgb(255, 188, 62);
+        padding: 1rem;
+
+        & > div {
+            padding: .4rem 1rem;
+
+            label, span {
+                min-width: 10rem;
+                font-size: 1.2em;
+                font-family: 'Recursive', sans-serif;
+            }
+
+            span {
+                color: tomato;
+            }
+
+            @media screen and (max-width: 600px){
+                display: flex;
+                flex-flow: column;
+                padding: .6rem 1rem;
+            }
+        }
+
+        .btm span::after { content: 'BTM'; }
+        .distance span::after { content: 'M'; }
+        .velocity span::after { content: 'Km/h'; }
+    }
+}
+
+@keyframes appear {
+    from {
+        transform: scale(.7);
+        opacity: 25%;
+    } to {
+        transform: scale(1);
+        opacity: 100%;
+    }
+}
+
+@keyframes desappear {
+    from {
+        transform: scale(1);
+        opacity: 100%;
+    } to {
+        transform: scale(.7);
+        opacity: 25%;
     }
 }

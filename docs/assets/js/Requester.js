@@ -4,11 +4,11 @@ class Requester {
         this.delay = 15;
     }
 
-    send (pos, body, onDelayOn, onDelayDone, whileDelayOn) {
+    send (pos, body, onDelayOn, onDelayDone, whileDelayOn, responseStatus) {
         if (this.isDelayOn) { return null; }
 
         this.isDelayOn = true;
-        onDelayOn();
+        onDelayOn && onDelayOn();
 
         const requestOpt = {
             method: 'POST',
@@ -19,19 +19,51 @@ class Requester {
             body: JSON.stringify(body),
             credentials: "same-origin"
         }
-        fetch(`http://things.ubidots.com/api/v1.6/devices/running-machine-${pos}`, requestOpt)
-        .then(console.log)
-        .catch(console.error);
+        fetch(`http://things.ubidots.com/api/v1.6/devices/running-machine-${pos + 1}`, requestOpt)
+        .then(
+            function () {
+                const style = 'color: #bada55; font-weight: bold'
+
+                const text = [
+                '%cSending Data...', 
+                `Url: http://things.ubidots.com/api/v1.6/devices/running-machine-${pos + 1}`,
+                `Body: ${JSON.stringify(body)}`,
+                'Apparent everything went good... 👌'
+                ]
+                .reduce((total, next) => total + '\n' + next);
+
+                console.log(text, style);
+
+                responseStatus && responseStatus(true)
+            }
+        )
+        .catch(
+            function () {
+                const style = 'color: #da7055; font-weight: bold'
+
+                const text = [
+                '%cSending Data...', 
+                `Url: http://things.ubidots.com/api/v1.6/devices/running-machine-${pos + 1}`,
+                `Body: ${JSON.stringify(body)}`,
+                'Something went very badly wrong... 😨'
+                ]
+                .reduce((total, next) => total + '\n' + next);
+
+                console.log(text, style);
+
+                responseStatus && responseStatus(false)
+            }
+        );
 
         let timer = 0;
-        whileDelayOn(this.delay - timer);
+        whileDelayOn && whileDelayOn(this.delay - timer);
         const intervalID = setInterval(function () {
             timer++;
-            whileDelayOn(this.delay - timer);
+            whileDelayOn && whileDelayOn(this.delay - timer);
 
             if (timer > this.delay) {
                 this.isDelayOn = false;
-                onDelayDone();
+                onDelayDone && onDelayDone();
                 clearInterval(intervalID);
                 return null;
             }

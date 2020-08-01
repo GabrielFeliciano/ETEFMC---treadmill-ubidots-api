@@ -1,5 +1,9 @@
-class ManualTreadmill {
-    constructor(delFunc, reqFunc) {
+import DefaultTreadmill from './DefaultTreadmill.js';
+
+class ManualTreadmill extends DefaultTreadmill {
+    constructor(delFunc, reqFunc, changeType) {
+        super(delFunc, reqFunc, changeType);
+
         const generalLabels = [{
             type: 'range',
             className: 'velocity',
@@ -27,9 +31,6 @@ class ManualTreadmill {
 
         // Colletion of a group of outputs
         this.outputs = generalLabels.map(info => this.createOutput(info).bind(this));
-        
-        // The X that deletes the card
-        this.closeX = this.createX();
 
         // Container of inputs and outputs
         this.inputs__container = $('<div class="inputs">').append(this.inputs);
@@ -43,103 +44,31 @@ class ManualTreadmill {
         });
         this.inputs__container.find('input').trigger('input');
 
-        // Title Element
-        this.titleLabel = this.createTitleLabel();
-
         // Bottom Buttons
-        this.buttonSend = this.createButtonSend();
-        this.buttonAuto = this.createButtonAuto();
+        this.buttonSend = this.createBottomButton('send', 'Enviar');
+        this.buttonAuto = this.createBottomButton('auto', 'Valores automáticos');
         this.buttonGroup = this.createButtonGroup(this.buttonSend, this.buttonAuto);
 
-        // Bottom Button on click
+        // Bottom Buttons on click
         this.buttonSend.click(this.onSend.bind(this));
+        this.buttonAuto.click((() => this.onChangeType(this.position)).bind(this))
+
+        // Bottom Message on request
+        this.messageLine = this.createMessageLine();
+        this.messageLine.animate({
+            height: "toggle"
+        }, 0);
 
         // The entire card container Element
-        this.card = $(`<div class="running-machine__container"></div>`);
+        this.card = $(`<div class="treadmill-card manual">`);
         this.card.append(
             this.closeX,
             this.titleLabel,
             this.outputs__container, 
             this.inputs__container,
-            this.buttonGroup
+            this.buttonGroup,
+            this.messageLine
         );
-
-        // Pos of card
-        this.position = 0;
-
-        // Callback for self deleting
-        this.selfDel = delFunc;
-
-        // Request to talk to API
-        this.requester = reqFunc;
-    }
-
-    createInput (input) {
-        const {type} = input;
-        if (type === 'range') {
-            const {className, label, min = 1, max = 100, step = .1, initialValue = 50} = input;
-            return $(`
-            <div class="${className}">
-                <label for="${className}">${label}</label>
-                <input type="range" min="${min}" max="${max}" step="${step}" value="${initialValue}" class="slider" name="${className}">
-            </div>
-        `);
-        } else {
-            const {className, label} = input;
-            return $(`
-            <div class="${className}">
-                <label for="${className}">${label}</label>
-                <input type="text" name="${className}">
-            </div>
-        `);   
-        }
-    }
-
-    createOutput (input) {
-        const {className, label} = input;
-        return $(`
-            <div class="${className}">
-                <label>${label}</label>
-                <span></span>
-            </div>
-        `);
-    }
-
-    createX () {
-        const x = $('<div class="close-icon"><p>X</p></div>');
-        x.click(function () { 
-            this.selfDel(this.runningMachine);
-        }.bind(this));
-        return x;
-    }
-
-    createTitleLabel () {
-        return $('<h2>');
-    }
-
-    createButtonSend () {
-        return $('<button class="send">Enviar</button>');
-    }
-
-    createButtonAuto () {
-        return $('<button class="auto">Valores automáticos</button>');
-    }
-
-    createButtonGroup (...buttons) {
-        const ButtonContainer = $('<div class="buttons__container">');
-        ButtonContainer.append(buttons.flat());
-        return ButtonContainer;
-    }
-
-    changeTitleLabel (num) {
-        const emojis = ['🤸‍♀️','🤸‍♂️','🏃‍♂️','🚴‍♀️','🚴‍♂️','🏃‍♀️'];
-        const getRandomEmoji = () => emojis[Math.floor((emojis.length - 1) * Math.random())]
-        return this.titleLabel.text(`${getRandomEmoji()}Esteira ${num}${getRandomEmoji()}`);
-    }
-
-    changePosition (num) {
-        this.position = num;
-        this.changeTitleLabel(num);
     }
 
     onSend () {
@@ -149,11 +78,10 @@ class ManualTreadmill {
         allInputs.forEach(e => {
             const elemTransformed = $(e);
             const result = (parseFloat(elemTransformed.val()) || elemTransformed.val() || elemTransformed.attr('min'));
-            body[elemTransformed.attr('name')] = result ? 0 : result;
+            body[elemTransformed.attr('name')] = result ? result : 0;
         });
-        
-        console.log(this.Requester)
-        this.requester(this.position, body);
+
+        this.requester(this.position, body, this.onGotResponseStats);
     }
 }
 

@@ -1,0 +1,66 @@
+.treadmill-card.auto {
+    border-left: lightseagreen solid 1rem;
+    margin-bottom: 2rem;
+    box-shadow: .5rem .5rem .1rem .1rem rgba(0, 0, 0, 0.3);
+    border-radius: .25rem;
+    position: relative;
+
+    .outputs, .infos, .important-stats {
+        border-left: .4rem solid lightslategray;
+
+        & > div {
+            padding: .5rem 1rem;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: space-between;
+            transition: all .5s;
+
+            label {
+                text-align: left;
+                font-size: 2em;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                max-width: 50%;
+
+                @media screen and (max-width: 950px){
+                    font-size: 1.7em;
+                }
+
+                @media screen and (max-width: 850px){
+                    font-size: 1.3em;
+                }
+
+                @media screen and (max-width: 500px){
+                    font-size: 1.1em;
+                    font-weight: bold;
+                    width: 100%;
+                    max-width: unset;
+                    padding-bottom: .5rem;
+                }
+            }
+
+            span {
+                font-size: 1.2em;
+                font-family: 'Recursive', sans-serif;
+                color: tomato;
+            }
+
+            @media screen and (max-width: 500px){
+                display: flex;
+                flex-flow: column;
+            }
+        }
+    }
+
+    .important-stats {
+        background-color: #ffbc3e;
+    }
+    
+    .infos {
+        background-color: #ffd27d;
+    }
+
+    .outputs {
+        background-color: #dddddd;
+    }
+}

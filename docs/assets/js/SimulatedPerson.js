@@ -26,40 +26,71 @@ const names = [
 ]
 
 class SimulatedPerson {
-    constructor () {
+    constructor (whenStartForReal, whenDone) {
+        this.whenStartForReal = whenStartForReal;
+        this.whenDone = whenDone;
+
         fetch('https://randomuser.me/api/')
         .then(e => e.json())
         .then((response => this.changeName(response.results[0].name.first)).bind(this))
-        .catch(names[this.intRandomizer(names.length) - 1]);
+        .catch(err => this.changeName(names[this.intRandomizer(names.length) - 1]));
 
-        this.resistance = this.intRandomizer(10) / 10;
-        this.determination = this.intRandomizer(10) / 10;
-        this.experience = this.intRandomizer(10) / 10;
+        this.about = {
+            resistance: this.intRandomizer(10),
+            determination: this.intRandomizer(10),
+            experience: this.intRandomizer(10)
+        }
 
-        this.maxVelocity = 1.25 * this.determination + 2.5 * (this.resistance - .5) + 8;
-        this.timeToSpend = 120 + 100 * this.determination + this.randomizerPosOrNeg(28);
+        this.about = { ...this.about,
+            maxVelocity: 1.25 * this.about.determination / 10 + 1.75 * this.about.resistance / 10 + 1.75,
+            timeToSpend: 100 + 50 * this.about.determination / 10 + this.randomizerPosOrNeg(18)
+        }
+        
+        this.stats = {
+            velocity: 0,
+            distance: 0,
+            acceleration: 0,
+            time: 0
+        }
 
         this.velocityFunction = this.createVelocityFunction();
         this.distanceFunction = this.createDistanceFunction();
         this.accelerationFunction = this.createAcceleration();
+
+        this.observers = [];
     }
 
     start () {
-        let time = 0;
-        const intervalID = setInterval(function () {
-            console.log(this.calculateStats(time));
+        setTimeout(function () {
+            this.whenStartForReal();
 
-            time += .1;
-            time > this.timeToSpend ? clearInterval(intervalID) : null;
-        }.bind(this), 100);
+            let time = 0;
+            const intervalID = setInterval(function () {
+                this.calculateStats(time);
+                for (let observer of this.observers) {
+                    observer(this.about, this.stats);
+                }
+    
+                time += .1;
+                this.stats.time = time.toFixed(2);
+                time > this.about.timeToSpend ? this.end(intervalID) : null;
+            }.bind(this), 50);
+        }.bind(this), (this.intRandomizer(2.5) + 15) * 1000)
+    }
+
+    end (intervalID) {
+        clearInterval(intervalID);
+        this.whenDone();
+    }
+
+    subscribeObserver (observer) {
+        this.observers.push(observer);
     }
 
     calculateStats (time) {
-        return {
-            velocity: this.velocityFunction(time), 
-            distance: this.distanceFunction(time), 
-            acceleration: this.accelerationFunction(time)
-        };
+        this.stats.velocity = this.velocityFunction(time).toFixed(3); 
+        this.stats.distance = this.distanceFunction(time).toFixed(3);
+        this.stats.acceleration = this.accelerationFunction(time).toFixed(3);
     }
 
     intRandomizer (size = 5) {
@@ -80,27 +111,27 @@ class SimulatedPerson {
         // b * (log(1.1, x/2 + 1) / (log(1.1, a/2 + 1) - log(1.1, 1)))
 
         const f = x => Math.log(x/2 + 1) / Math.log(1.1);
-        const v = x => this.maxVelocity * (f(x) / (f(this.timeToSpend) - f(0)));
+        const v = x => this.about.maxVelocity * (f(x) / (f(this.about.timeToSpend) - f(0)));
 
         return v;
     }
 
     createDistanceFunction () {
         const ln = Math.log;
-        const d = x => (this.maxVelocity * ln(x/2 + 1) * (x + 2) - x) / (ln(this.timeToSpend / 2 + 1));
+        const d = x => (this.about.maxVelocity * ln(x/2 + 1) * (x + 2) - x) / (ln(this.about.timeToSpend / 2 + 1));
 
         return d;
     }
 
     createAcceleration () {
         const ln = Math.log;
-        const a = x => this.maxVelocity / (ln((this.timeToSpend + 2) / 2) * (x + 2));
+        const a = x => this.about.maxVelocity / (ln((this.about.timeToSpend + 2) / 2) * (x + 2));
 
         return a;
     }
 
     changeName (name) {
-        this.name = name;
+        this.about.name = name;
     }
 }
 
